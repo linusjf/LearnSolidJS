@@ -5,6 +5,7 @@ import styles from './App.module.css';
 import Hello from './Hello';
 import HelloWorld from './HelloWorld';
 import Nested from './Nested';
+import Counter from './Counter';
 
 const App: Component = () => {
   return (
@@ -25,6 +26,7 @@ const App: Component = () => {
     <Hello name="Solid"/>
     <HelloWorld/>
     <Nested/>
+    <Counter/>
       </header>
     </div>
   );
