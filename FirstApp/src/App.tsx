@@ -3,6 +3,8 @@ import type { Component } from 'solid-js';
 import logo from './logo.svg';
 import styles from './App.module.css';
 import Hello from './Hello';
+import HelloWorld from './HelloWorld';
+import Nested from './Nested';
 
 const App: Component = () => {
   return (
@@ -21,6 +23,8 @@ const App: Component = () => {
           Learn Solid
         </a>
     <Hello name="Solid"/>
+    <HelloWorld/>
+    <Nested/>
       </header>
     </div>
   );
