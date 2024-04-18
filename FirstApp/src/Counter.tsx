@@ -1,10 +1,10 @@
 import {createSignal} from "solid-js";
 
+function Counter () {
 const [count, setCount] = createSignal<number>(0);
 
 setInterval(() => setCount(c => c + 1), 1000);
 
-function Counter () {
   return <div>Count : {count()}</div>;
 }
 

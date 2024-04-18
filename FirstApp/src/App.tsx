@@ -6,6 +6,7 @@ import Hello from './Hello';
 import HelloWorld from './HelloWorld';
 import Nested from './Nested';
 import Counter from './Counter';
+import ButtonCounter from './ButtonCounter';
 
 const App: Component = () => {
   return (
@@ -24,6 +25,7 @@ const App: Component = () => {
     <HelloWorld/>
     <Nested/>
     <Counter/>
+    <ButtonCounter/>
       </header>
     </div>
   );
