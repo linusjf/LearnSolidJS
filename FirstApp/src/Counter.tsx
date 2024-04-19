@@ -1,11 +1,12 @@
-import { createSignal } from "solid-js";
+import { createSignal, onCleanup } from "solid-js";
 
 function Counter() {
   const [count, setCount] = createSignal<number>(0);
 
   const doubleCount = () => count() * 2;
 
-  setInterval(() => setCount((c) => c + 1), 1000);
+  const timer = setInterval(() => setCount((c) => c + 1), 1000);
+  onCleanup(() => clearInterval(timer));
 
   return (
     <>
