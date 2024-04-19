@@ -8,6 +8,7 @@ import Nested from "./Nested";
 import Counter from "./Counter";
 import ButtonCounter from "./ButtonCounter";
 import FibCounter from "./FibCounter";
+import Cats from "./Cats";
 
 const App: Component = () => {
   return (
@@ -28,6 +29,7 @@ const App: Component = () => {
         <Counter />
         <ButtonCounter />
         <FibCounter />
+        <Cats />
       </header>
     </div>
   );
