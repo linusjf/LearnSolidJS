@@ -1,4 +1,5 @@
 import type { Component } from "solid-js";
+import { Portal } from "solid-js/web";
 
 import logo from "./logo.svg";
 import styles from "./App.module.css";
@@ -26,6 +27,12 @@ const App: Component = () => {
         <SwitchMatch />
         <DynamicTag />
       </header>
+      <Portal>
+        <div class="popup">
+          <h1>Popup</h1>
+          <p>Some text you might need for something or other.</p>
+        </div>
+      </Portal>
     </div>
   );
 };
