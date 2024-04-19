@@ -4,7 +4,7 @@
   },
   "description": "",
   "devDependencies": {
-    "solid-devtools": "^0.29.2",
+    "solid-devtools": "^0.30.0",
     "typescript": "^5.3.3",
     "vite": "^5.2.9",
     "vite-plugin-solid": "^2.8.2"
