@@ -32,23 +32,3 @@
     transform: rotate(360deg);
   }
 }
-
-.popup {
-  position: relative;
-  z-index: 2;
-  background: #ddd;
-  padding: 1rem;
-  min-height: 12.5rem;
-  min-width: 12.5rem;
-}
-
-.popup::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -0.3125rem;
-  border-width: 0.3125rem;
-  border-style: solid;
-  border-color: transparent transparent #ddd;
-}

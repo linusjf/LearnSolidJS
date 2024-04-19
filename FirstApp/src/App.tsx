@@ -12,6 +12,7 @@ import FibCounter from "./FibCounter";
 import Cats from "./Cats";
 import SwitchMatch from "./SwitchMatch";
 import DynamicTag from "./DynamicTag";
+import ErrorMessage from "./ErrorMessage";
 
 const App: Component = () => {
   return (
@@ -20,6 +21,13 @@ const App: Component = () => {
         <Hello name="Solid" />
         <HelloWorld />
         <Nested />
+        <ErrorMessage />
+        <Portal>
+          <div class={styles.popup}>
+            <h1>Popup</h1>
+            <p>Some text you might need for something or other.</p>
+          </div>
+        </Portal>
         <Counter />
         <ButtonCounter />
         <FibCounter />
@@ -27,12 +35,6 @@ const App: Component = () => {
         <SwitchMatch />
         <DynamicTag />
       </header>
-      <Portal>
-        <div class="popup">
-          <h1>Popup</h1>
-          <p>Some text you might need for something or other.</p>
-        </div>
-      </Portal>
     </div>
   );
 };
