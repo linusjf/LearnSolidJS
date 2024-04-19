@@ -9,20 +9,12 @@ import Counter from "./Counter";
 import ButtonCounter from "./ButtonCounter";
 import FibCounter from "./FibCounter";
 import Cats from "./Cats";
+import SwitchMatch from "./SwitchMatch";
 
 const App: Component = () => {
   return (
     <div class={styles.App}>
       <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
         <Hello name="Solid" />
         <HelloWorld />
         <Nested />
@@ -30,6 +22,7 @@ const App: Component = () => {
         <ButtonCounter />
         <FibCounter />
         <Cats />
+        <SwitchMatch />
       </header>
     </div>
   );
