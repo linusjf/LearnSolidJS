@@ -10,6 +10,7 @@ import ButtonCounter from "./ButtonCounter";
 import FibCounter from "./FibCounter";
 import Cats from "./Cats";
 import SwitchMatch from "./SwitchMatch";
+import DynamicTag from "./DynamicTag";
 
 const App: Component = () => {
   return (
@@ -23,6 +24,7 @@ const App: Component = () => {
         <FibCounter />
         <Cats />
         <SwitchMatch />
+        <DynamicTag />
       </header>
     </div>
   );
