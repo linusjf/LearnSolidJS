@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import { For } from "solid-js";
+import { Index } from "solid-js";
 
 interface Cat {
   id: string;
@@ -15,18 +16,34 @@ function Cats() {
 
   return (
     <>
-      <For each={cats()}>
-        {(cat, i) => (
-          <li>
-            <a
-              target="_blank"
-              href={`https://www.youtube.com/watch?v=${cat.id}`}
-            >
-              {i() + 1}: {cat.name}
-            </a>
-          </li>
-        )}
-      </For>
+      <ol>
+        <For each={cats()}>
+          {(cat, i) => (
+            <li>
+              <a
+                target="_blank"
+                href={`https://www.youtube.com/watch?v=${cat.id}`}
+              >
+                {i() + 1}: {cat.name}
+              </a>
+            </li>
+          )}
+        </For>
+      </ol>
+      <ul>
+        <Index each={cats()}>
+          {(cat, i) => (
+            <li>
+              <a
+                target="_blank"
+                href={`https://www.youtube.com/watch?v=${cat().id}`}
+              >
+                {i + 1}: {cat().name}
+              </a>
+            </li>
+          )}
+        </Index>
+      </ul>
     </>
   );
 }
