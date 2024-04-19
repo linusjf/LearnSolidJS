@@ -6,13 +6,14 @@ const Broken = (props: any) => {
 };
 
 function ErrorMessage() {
-  return (<>
-    <div>Before</div>
-    <ErrorBoundary fallback={err => err}>
-  <Broken />
-</ErrorBoundary>
-    <div>After</div>
-      </>
+  return (
+    <>
+      <div>Before</div>
+      <ErrorBoundary fallback={(err) => err}>
+        <Broken />
+      </ErrorBoundary>
+      <div>After</div>
+    </>
   );
 }
 
