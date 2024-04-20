@@ -35,8 +35,6 @@ if ! test -z "$files"; then
 fi
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
   -o -type f -name "*.scss" -print)
-#files=$(find . -type f -name "*.scss" \
-# ! -path "**/.git/**" ! -path "**/node_modules/**")
 if ! test -z "$files"; then
   echo -e "${GREEN}Executing prettier for scss...${ENDCOLOR}"
   echo "$files" |
@@ -49,8 +47,8 @@ if ! test -z "$files"; then
       stylelint % --color --fix --quiet-deprecation-warnings
   STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
 fi
-files=$(find . -maxdepth 2 -type f -name "*.html" \
-  ! -path "**/.git/**" ! -path "**/dist/**")
+files=$(find . \( -path "**/.git/**" -o -path "**/dist/**" -o -path "**/node_modules/**" -o -path "**/build/**" \) -prune \
+  -o -type f -name "*.html" -print)
 if ! test -z "$files"; then
   echo -e "${GREEN}Executing tidy...${ENDCOLOR}"
   echo "Warnings and errors written to tidy.out."
@@ -73,10 +71,10 @@ if ! test -z "$files"; then
       html-validate --formatter stylish %
   SUCCESS=$((SUCCESS + $?))
 fi
-files=$(find . -type f -name "*.js" -name "*.mjs" \
-  ! -path "**/.git/**" ! -path "**/node_modules/**")
+files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+  -o -type f \( -name "*.js" -o -name "*.mjs" \) -print)
 if ! test -z "$files"; then
-  echo -e "${GREEN}Executing js-beautify for js...${ENDCOLOR}"
+  echo -e "${GREEN}Executing js-beautify for javascript files...${ENDCOLOR}"
   echo "$files" |
     parallel -X --bar -j "$PROCS" -I% \
       js-beautify --type js --quiet -r %
