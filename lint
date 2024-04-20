@@ -33,8 +33,10 @@ if ! test -z "$files"; then
       stylelint % --color --fix --quiet-deprecation-warnings
   STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
 fi
-files=$(find . -type f -name "*.scss" \
-  ! -path "**/.git/**" ! -path "**/node_modules/**")
+files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
+  -o -type f -name "*.scss" -print)
+#files=$(find . -type f -name "*.scss" \
+# ! -path "**/.git/**" ! -path "**/node_modules/**")
 if ! test -z "$files"; then
   echo -e "${GREEN}Executing prettier for scss...${ENDCOLOR}"
   echo "$files" |
