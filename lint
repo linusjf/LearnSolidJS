@@ -3,7 +3,7 @@
 source ./require.sh
 source ./errorhandlers.sh
 source ./colors.sh
-require date htmlhint sed stylelint prettier tidy find parallel colorguard html-validate js-beautify nproc mdl mdformat
+require date htmlhint sed stylelint prettier tidy find parallel colorguard html-validate js-beautify nproc mdl mdformat eslint
 start=$(date +%s)
 echo -e "${GREEN}Starting...${ENDCOLOR}"
 declare -i SUCCESS=0
