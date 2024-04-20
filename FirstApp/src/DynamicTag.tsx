@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { Options } from "vite-plugin-solid";
@@ -7,7 +7,7 @@ const RedThing = () => <strong style="color:red">Red Thing</strong>;
 const GreenThing = () => <strong style="color:green">Green Thing</strong>;
 const BlueThing = () => <strong style="color:blue">Blue Thing</strong>;
 
-const options: any = {
+const options: Record<string, () => JSXElement> = {
   red: RedThing,
   green: GreenThing,
   blue: BlueThing
