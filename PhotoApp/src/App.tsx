@@ -1,4 +1,3 @@
-import { render } from "solid-js/web";
 import { createSignal, onMount, For } from "solid-js";
 import "./styles.css";
 

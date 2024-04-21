@@ -1,7 +1,6 @@
 import { JSXElement, createSignal } from "solid-js";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { Options } from "vite-plugin-solid";
 
 const RedThing = () => <strong style="color:red">Red Thing</strong>;
 const GreenThing = () => <strong style="color:green">Green Thing</strong>;

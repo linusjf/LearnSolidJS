@@ -1,7 +1,7 @@
 import { onMount, onCleanup } from "solid-js";
 import "./styles.css";
 import Canvas from "./Canvas";
-
+/* eslint no-undef: 0 */ // -->
 function Refs() {
   let canvas: HTMLCanvasElement | undefined = undefined;
   onMount(() => {

@@ -1,6 +1,7 @@
 import { ErrorBoundary } from "solid-js";
-
-const Broken = (props: any) => {
+/* eslint no-unused-vars: 0 */ // -->
+/* eslint no-unreachable: 0 */ // -->
+const Broken = (props: Record<string, any>) => {
   throw new Error("Oh No");
   return <>Never Getting Here</>;
 };

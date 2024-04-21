@@ -1,4 +1,4 @@
-import { JSXElement, onCleanup } from "solid-js";
+import { onCleanup } from "solid-js";
 
 export default function ClickOutside(
   el: HTMLDivElement,

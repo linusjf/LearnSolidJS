@@ -1,7 +1,6 @@
 import type { Component } from "solid-js";
 import { Portal } from "solid-js/web";
 
-import logo from "./logo.svg";
 import styles from "./App.module.css";
 import Hello from "./Hello";
 import HelloWorld from "./HelloWorld";
