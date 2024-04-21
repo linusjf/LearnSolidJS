@@ -17,5 +17,6 @@
     "eslint-plugin-yml": "^1.14.0",
     "typescript": "^5.4.5",
     "yaml-eslint-parser": "^1.2.2"
-  }
+  },
+  "type": "module"
 }
