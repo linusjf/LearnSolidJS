@@ -163,6 +163,15 @@ if test -n "$files"; then
       eslint --fix --color %
   SUCCESS=$((SUCCESS + $?))
 fi
+files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+  -o -type f -name "*.yaml" -print)
+if test -n "$files"; then
+  echo -e "${GREEN}Executing prettier for yaml...${ENDCOLOR}"
+  echo "$files" |
+    parallel -X --bar -j "$PROCS" -I% \
+      prettier --log-level silent --cache --parser yaml --write %
+  SUCCESS=$((SUCCESS + $?))
+fi
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
   -o -type f -name "*.md" -print)
 if test -n "$files"; then
