@@ -6,7 +6,7 @@ const tsParser = require("@typescript-eslint/parser");
 
 module.exports = [{
   name: "ESLint for SolidJS",
-  files: ["**/*.jsx", "**/*.tsx", "**/*.json"],
+  files: ["**/*.jsx", "**/*.tsx", "**/*.json", "**/*.ts"],
   languageOptions: {
     ecmaVersion: "latest",
     globals: {
