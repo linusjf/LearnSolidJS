@@ -1,10 +1,12 @@
 const solid = require("eslint-plugin-solid");
+const json = require("eslint-plugin-json");
+const jsonFiles = require("eslint-plugin-json-files");
 const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
 
 module.exports = [{
   name: "ESLint for SolidJS",
-  files: ["**/*.jsx", "**/*.tsx"],
+  files: ["**/*.jsx", "**/*.tsx", "**/*.json"],
   languageOptions: {
     ecmaVersion: "latest",
     globals: {
@@ -15,8 +17,7 @@ module.exports = [{
         jsx: true
       },
       ecmaVersion: "latest",
-      sourceType: "module",
-      project: "tsconfig.json"
+      sourceType: "module"
     },
     parser: tsParser
   },
@@ -25,7 +26,9 @@ module.exports = [{
     reportUnusedDisableDirectives: "error"
   },
   plugins: {
-    solid
+    solid,
+    json,
+    jsonFiles
   },
   settings: {
     solid: {
