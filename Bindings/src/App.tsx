@@ -6,6 +6,7 @@ import Events from "./Events";
 import Styles from "./Styles";
 import Classes from "./Classes";
 import Refs from "./Refs";
+import ForwardRefs from "./ForwardRefs";
 
 const App: Component = () => {
   return (
@@ -13,6 +14,7 @@ const App: Component = () => {
       <header class={styles.header}>
         <Refs />
         <Classes />
+        <ForwardRefs />
         <Events />
         <Styles />
       </header>

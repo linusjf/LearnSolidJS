@@ -16,6 +16,4 @@ canvas {
   background-color: #282c34;
   mask: url("https://www.solidjs.com/img/logo/dark-without-wordmark/logo.svg")
     50% 50% no-repeat;
-  mask: url("https://www.solidjs.com/img/logo/dark-without-wordmark/logo.svg") 50%
-    50% no-repeat;
 }
