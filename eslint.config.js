@@ -3,6 +3,7 @@ const json = require("eslint-plugin-json");
 const jsonFiles = require("eslint-plugin-json-files");
 const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
+const typescript = require("@typescript-eslint/eslint-plugin");
 
 module.exports = [{
   name: "ESLint for SolidJS",
@@ -28,7 +29,8 @@ module.exports = [{
   plugins: {
     solid,
     json,
-    jsonFiles
+    jsonFiles,
+    typescript
   },
   settings: {
     solid: {
