@@ -18,5 +18,9 @@ module.exports = [{
   plugins: {
     yaml
   },
-  settings: {}
+  settings: {
+    yaml: {
+      version: "detect"
+    }
+  }
 }];
