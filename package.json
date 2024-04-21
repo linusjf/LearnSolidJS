@@ -3,6 +3,7 @@
     "globals": "^15.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",

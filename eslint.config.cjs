@@ -4,8 +4,15 @@ const jsonFiles = require("eslint-plugin-json-files");
 const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
 const typescript = require("@typescript-eslint/eslint-plugin");
-const yaml = require("eslint-plugin-yml");
 const js = require("@eslint/js");
+const { FlatCompat } = require("@eslint/eslintrc");
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname, // optional; default: process.cwd()
+  resolvePluginsRelativeTo: __dirname, // optional
+  recommendedConfig: solid.configs.recommended,
+  allConfig: solid.configs.typescript
+});
 
 module.exports = [
   {
