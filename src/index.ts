@@ -5,7 +5,9 @@ const longString =
 
 const trailing = "Semicolon";
 
-const why = { am: "I tabbed?" };
+const why = {
+  am: "I tabbed?"
+};
 
 const iWish = "I didn't have a trailing space...";
 
@@ -16,17 +18,17 @@ const vizzini = sicilian ? !sicilian : sicilian;
 const re = /foo {3}bar/;
 
 /**
- *
- * @param withThis
- * @param andThat
- * @param andThose
+ * @returns {void}
+ * @param {string} withThis first param
+ * @param {string} andThat second param
+ * @param {string[]} andThose last param
  */
 export function doSomeStuff(
   withThis: string,
   andThat: string,
   andThose: string[]
 ) {
-  //function on one line
+  // function on one line
   if (!andThose.length) {
     return false;
   }

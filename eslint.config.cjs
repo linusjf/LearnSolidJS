@@ -1,11 +1,10 @@
 const solid = require("eslint-plugin-solid");
-const json = require("eslint-plugin-json");
-const jsonFiles = require("eslint-plugin-json-files");
 const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
 const typescript = require("typescript-eslint");
 const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
+const jsonc = require("eslint-plugin-jsonc");
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [{
@@ -30,6 +29,7 @@ module.exports = [{
   },
   js.configs.recommended,
   jsdoc.configs["flat/recommended"],
+  ...jsonc["configs"]["flat/recommended-with-json"],
   {
     name: "ESLint for SolidJS",
     files: ["**/*.jsx", "**/*.tsx"],
@@ -94,8 +94,7 @@ module.exports = [{
     name: "ESLint for JSON",
     files: ["**/*.json"],
     plugins: {
-      json: json,
-      jsonFiles: jsonFiles
+      jsonc: jsonc
     },
     languageOptions: {
       ecmaVersion: "latest",
