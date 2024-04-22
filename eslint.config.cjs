@@ -7,10 +7,17 @@ const typescript = require("@typescript-eslint/eslint-plugin");
 const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 
-module.exports = [
-  {
+module.exports = [{
     ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
-    files: ["**/*.jsx", "**/*.tsx", "**/*.json", "**/*.ts", "**/*.js"]
+    files: [
+      "**/*.jsx",
+      "**/*.tsx",
+      "**/*.json",
+      "**/*.ts",
+      "**/*.js",
+      "**/*.mjs",
+      "**/*.cjs"
+    ]
   },
   js.configs.recommended,
   jsdoc.configs["flat/recommended"],
