@@ -8,8 +8,7 @@ const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
-module.exports = [
-  {
+module.exports = [{
     ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
     files: [
       "**/*.jsx",
