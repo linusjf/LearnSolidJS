@@ -1,8 +1,6 @@
-import { createSignal, onCleanup } from "solid-js";
+import { JSXElement, createSignal, onCleanup } from "solid-js";
 
-/**
- *
- */
+/** @returns {JSXElement} Display count and double count */
 function Counter() {
   const [count, setCount] = createSignal<number>(0);
 

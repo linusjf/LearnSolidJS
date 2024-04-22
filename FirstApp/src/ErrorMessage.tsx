@@ -1,4 +1,4 @@
-import { ErrorBoundary } from "solid-js";
+import { ErrorBoundary, JSXElement } from "solid-js";
 /* eslint no-unused-vars: 0 */ // -->
 /* eslint no-unreachable: 0 */ // -->
 const Broken = (props: Record<string, any>) => {
@@ -7,7 +7,7 @@ const Broken = (props: Record<string, any>) => {
 };
 
 /**
- *
+ * @returns {JSXElement} Example rendition of Error Boundary
  */
 function ErrorMessage() {
   return (

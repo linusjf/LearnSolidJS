@@ -1,7 +1,7 @@
-import { createSignal, onCleanup } from "solid-js";
+import { JSXElement, createSignal, onCleanup } from "solid-js";
 
 /**
- *
+ * @returns {JSXElement} Animated text
  */
 function Styles() {
   const [num, setNum] = createSignal<number>(0);

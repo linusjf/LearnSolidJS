@@ -1,5 +1,7 @@
+import { JSXElement } from "solid-js";
+
 /**
- *
+ * @returns {JSXElement} render Hello World with SVG image
  */
 function HelloWorld() {
   const svg = (

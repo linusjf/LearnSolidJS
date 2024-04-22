@@ -1,5 +1,5 @@
 /* eslint no-unused-vars: 0 */ // -->
-import { createSignal, Show } from "solid-js";
+import { createSignal, JSXElement, Show } from "solid-js";
 import clickOutside from "./ClickOutside";
 import "./styles.css";
 
@@ -12,7 +12,7 @@ declare module "solid-js/jsx-runtime" {
 }
 
 /**
- *
+ * @returns {JSXElement} Show of Modal Popup
  */
 function Directives() {
   const [show, setShow] = createSignal(false);

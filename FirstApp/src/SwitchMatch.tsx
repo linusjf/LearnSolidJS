@@ -1,10 +1,8 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import { Switch } from "solid-js";
 import { Match } from "solid-js";
 
-/**
- *
- */
+/** @returns {JSXElement} that displays a paragraph dependent on the value passed in */
 function SwitchMatch() {
   const [x] = createSignal(7);
 

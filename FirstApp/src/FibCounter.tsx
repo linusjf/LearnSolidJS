@@ -1,18 +1,16 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import { createMemo } from "solid-js";
 
 /**
- *
- * @param num
+ * @returns {number} fibonnacci number
+ * @param {number} num the ith index for fibonacci numbers
  */
 function fibonacci(num: number): number {
   if (num <= 1) return 1;
   return fibonacci(num - 1) + fibonacci(num - 2);
 }
 
-/**
- *
- */
+/** @returns {JSXElement} Fibonacci number computation using memoization */
 function FibCounter() {
   const [count, setCount] = createSignal<number>(0);
 

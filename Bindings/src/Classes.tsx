@@ -1,8 +1,8 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import "./styles.css";
 
 /**
- *
+ * @returns {JSXElement} list of buttons
  */
 function Classes() {
   const [current, setCurrent] = createSignal("foo");

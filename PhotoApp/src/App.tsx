@@ -1,4 +1,4 @@
-import { createSignal, onMount, For } from "solid-js";
+import { createSignal, onMount, For, JSXElement } from "solid-js";
 import "./styles.css";
 
 interface Photo {
@@ -7,7 +7,7 @@ interface Photo {
 }
 
 /**
- *
+ * @returns {JSXElement} rendition of Photo Album
  */
 function App() {
   const [photos, setPhotos] = createSignal<Photo[]>([]);
