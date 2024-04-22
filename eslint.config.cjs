@@ -7,7 +7,9 @@ const typescript = require("typescript-eslint");
 const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 
-module.exports = [{
+/** @type {import('eslint').Linter.FlatConfig[]} */
+module.exports = [
+  {
     ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
     files: [
       "**/*.jsx",
@@ -16,8 +18,16 @@ module.exports = [{
       "**/*.ts",
       "**/*.js",
       "**/*.mjs",
-      "**/*.cjs"
-    ]
+      "**/*.cjs",
+      "./.*.js"
+    ],
+    languageOptions: {
+      ecmaVersion: "latest",
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    }
   },
   js.configs.recommended,
   jsdoc.configs["flat/recommended"],
@@ -31,7 +41,8 @@ module.exports = [{
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
-        ...globals.browser
+        ...globals.browser,
+        ...globals.node
       },
       parserOptions: {
         ecmaFeatures: {
