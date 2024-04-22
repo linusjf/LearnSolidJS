@@ -8,7 +8,12 @@ const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 
 module.exports = [{
-    ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/build/**",
+      "./prettierrc.js"
+    ],
     files: [
       "**/*.jsx",
       "**/*.tsx",

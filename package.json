@@ -5,6 +5,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.1.1",
+    "@types/node": "20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.0",
@@ -19,9 +20,19 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-solid": "^0.13.2",
     "eslint-plugin-yml": "^1.14.0",
-    "typescript": "^5.4.5",
+    "gts": "^5.3.0",
+    "typescript": "~5.4.3",
     "typescript-eslint": "^7.7.0",
     "yaml-eslint-parser": "^1.2.2"
+  },
+  "scripts": {
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "lint": "gts lint",
+    "posttest": "npm run lint",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile"
   },
   "type": "module"
 }
