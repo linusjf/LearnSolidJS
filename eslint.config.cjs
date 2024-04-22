@@ -3,7 +3,7 @@ const json = require("eslint-plugin-json");
 const jsonFiles = require("eslint-plugin-json-files");
 const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
-const typescript = require("@typescript-eslint/eslint-plugin");
+const typescript = require("typescript-eslint");
 const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 
@@ -58,6 +58,7 @@ module.exports = [{
     plugins: {
       typescript
     },
+    ...typescript.configs["flat/recommended"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
