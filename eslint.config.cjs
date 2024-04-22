@@ -25,7 +25,7 @@ module.exports = [{
     name: "ESLint for SolidJS",
     files: ["**/*.jsx", "**/*.tsx"],
     plugins: {
-      solid
+      solid: solid
     },
     ...solid.configs["flat/recommended"],
     languageOptions: {
@@ -56,7 +56,7 @@ module.exports = [{
     name: "ESLint for TypeScript",
     files: ["**/*.ts"],
     plugins: {
-      typescript
+      ts: typescript
     },
     ...typescript.configs["flat/recommended"],
     languageOptions: {
@@ -84,8 +84,8 @@ module.exports = [{
     name: "ESLint for JSON",
     files: ["**/*.json"],
     plugins: {
-      json,
-      jsonFiles
+      json: json,
+      jsonFiles: jsonFiles
     },
     languageOptions: {
       ecmaVersion: "latest",
