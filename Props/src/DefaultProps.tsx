@@ -1,8 +1,8 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import Greeting from "./Greetings";
 
 /**
- *
+ * @returns {JSXElement} Greetings
  */
 export default function DefaultProps() {
   const [name, setName] = createSignal();
