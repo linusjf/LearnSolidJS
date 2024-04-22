@@ -11,7 +11,7 @@ function fibonacci(num: number): number {
 }
 
 /** @returns {JSXElement} Fibonacci number computation using memoization */
-function FibCounter() {
+function FibCounter(): JSXElement {
   const [count, setCount] = createSignal<number>(0);
 
   const fib = createMemo(() => {

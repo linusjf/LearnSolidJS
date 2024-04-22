@@ -3,7 +3,7 @@ import { JSXElement } from "solid-js";
 /**
  * @returns {JSXElement} render Hello World with SVG image
  */
-function HelloWorld() {
+function HelloWorld(): JSXElement {
   const svg = (
     <div style={{ margin: "auto" }}>
       <svg height="300" width="400">
@@ -11,11 +11,11 @@ function HelloWorld() {
           <linearGradient id="gr1" x1="0%" y1="60%" x2="100%" y2="0%">
             <stop
               offset="5%"
-              style="stop-color:rgb(255,255,3);stop-opacity:1"
+              style={{ "stop-color": "rgb(255,255,3)", "stop-opacity": "1" }}
             />
             <stop
               offset="100%"
-              style="stop-color:rgb(255,0,0);stop-opacity:1"
+              style={{ "stop-color": "rgb(255,0,0)", "stop-opacity": "1" }}
             />
           </linearGradient>
         </defs>

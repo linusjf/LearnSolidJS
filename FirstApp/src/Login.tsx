@@ -2,7 +2,7 @@ import { JSXElement, createSignal } from "solid-js";
 import { Show } from "solid-js";
 
 /** @returns {JSXElement} that toggles Login/Logout buttons */
-function Login() {
+function Login(): JSXElement {
   const [loggedIn, setLoggedIn] = createSignal<boolean>(false);
 
   const toggle = () => setLoggedIn(!loggedIn);

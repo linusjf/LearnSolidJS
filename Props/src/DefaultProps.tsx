@@ -4,7 +4,7 @@ import Greeting from "./Greetings";
 /**
  * @returns {JSXElement} Greetings
  */
-export default function DefaultProps() {
+export default function DefaultProps(): JSXElement {
   const [name, setName] = createSignal();
   return (
     <>

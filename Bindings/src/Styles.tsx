@@ -3,7 +3,7 @@ import { JSXElement, createSignal, onCleanup } from "solid-js";
 /**
  * @returns {JSXElement} Animated text
  */
-function Styles() {
+function Styles(): JSXElement {
   const [num, setNum] = createSignal<number>(0);
 
   const timer = setInterval(() => setNum((num() + 1) % 255), 30);

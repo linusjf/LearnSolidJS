@@ -9,6 +9,6 @@ const pkg: Record<string, any> = {
 };
 
 /** @returns {JSXElement} the info about the package */
-export default function Spreads() {
+export default function Spreads(): JSXElement {
   return <Info {...pkg} />;
 }

@@ -9,7 +9,7 @@ interface Photo {
 /**
  * @returns {JSXElement} rendition of Photo Album
  */
-function App() {
+function App(): JSXElement {
   const [photos, setPhotos] = createSignal<Photo[]>([]);
 
   onMount(async () => {

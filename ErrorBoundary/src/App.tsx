@@ -9,7 +9,7 @@ const Broken = (props: Record<string, any>) => {
 /**
  * @returns {JSXElement} rendition of Error Boundary
  */
-function App() {
+function App(): JSXElement {
   return (
     <>
       <div>Before</div>

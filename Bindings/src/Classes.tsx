@@ -4,7 +4,7 @@ import "./styles.css";
 /**
  * @returns {JSXElement} list of buttons
  */
-function Classes() {
+function Classes(): JSXElement {
   const [current, setCurrent] = createSignal("foo");
 
   return (

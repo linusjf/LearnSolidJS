@@ -1,8 +1,7 @@
 const globals = require("globals");
 const jsonc = require("eslint-plugin-jsonc");
 
-const config = [
-  {
+const config = [{
     ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
     files: ["**/*.json"],
     languageOptions: {

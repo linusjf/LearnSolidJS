@@ -2,7 +2,7 @@ import { JSXElement, createSignal } from "solid-js";
 import { createEffect } from "solid-js";
 
 /** @returns {JSXElement} returns button to increment count and counter */
-function ButtonCounter() {
+function ButtonCounter(): JSXElement {
   const [count, setCount] = createSignal<number>(0);
 
   createEffect(() => {
