@@ -1,9 +1,7 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import { createEffect } from "solid-js";
 
-/**
- *
- */
+/** @returns {JSXElement} returns button to increment count and counter */
 function ButtonCounter() {
   const [count, setCount] = createSignal<number>(0);
 
