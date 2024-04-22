@@ -27,6 +27,7 @@ module.exports = [{
     plugins: {
       solid
     },
+    ...solid.configs["flat/recommended"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
