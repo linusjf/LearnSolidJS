@@ -1,5 +1,5 @@
 /* eslint no-unused-vars: 0 */ // -->
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import { For } from "solid-js";
 import { Index } from "solid-js";
 
@@ -8,9 +8,7 @@ interface Cat {
   name: string;
 }
 
-/**
- *
- */
+/** @returns {JSXElement} JSX elements with a list of cat videos */
 function Cats() {
   const [cats, setCats] = createSignal<Array<Cat>>([
     { id: "J---aiyznGQ", name: "Keyboard Cat" },

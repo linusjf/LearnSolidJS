@@ -5,6 +5,7 @@ const typescript = require("typescript-eslint");
 const js = require("@eslint/js");
 const jsdoc = require("eslint-plugin-jsdoc");
 const jsonc = require("eslint-plugin-jsonc");
+const jsoncParser = require("jsonc-eslint-parser");
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [{
@@ -29,7 +30,7 @@ module.exports = [{
   },
   js.configs.recommended,
   jsdoc.configs["flat/recommended"],
-  ...jsonc["configs"]["flat/recommended-with-json"],
+  ...jsonc.configs["flat/recommended-with-json"],
   {
     name: "ESLint for SolidJS",
     files: ["**/*.jsx", "**/*.tsx"],
@@ -99,17 +100,14 @@ module.exports = [{
     languageOptions: {
       ecmaVersion: "latest",
       globals: {},
-      parser: tsParser
+      parser: jsoncParser
     },
     linterOptions: {
       noInlineConfig: false,
       reportUnusedDisableDirectives: "error"
     },
     settings: {
-      json: {
-        version: "detect"
-      },
-      jsonFiles: {
+      jsonc: {
         version: "detect"
       }
     }
