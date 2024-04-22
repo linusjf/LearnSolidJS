@@ -1,5 +1,8 @@
 import { createSignal, onCleanup } from "solid-js";
 
+/**
+ *
+ */
 function Counter() {
   const [count, setCount] = createSignal<number>(0);
 

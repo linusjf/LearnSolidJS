@@ -8,6 +8,9 @@ interface Cat {
   name: string;
 }
 
+/**
+ *
+ */
 function Cats() {
   const [cats, setCats] = createSignal<Array<Cat>>([
     { id: "J---aiyznGQ", name: "Keyboard Cat" },

@@ -12,6 +12,9 @@ const options: Record<string, () => JSXElement> = {
   blue: BlueThing
 };
 
+/**
+ *
+ */
 function DynamicTag() {
   const [selected, setSelected] = createSignal<string>("red");
 

@@ -5,20 +5,21 @@ const globals = require("globals");
 const tsParser = require("@typescript-eslint/parser");
 const typescript = require("@typescript-eslint/eslint-plugin");
 const js = require("@eslint/js");
-const { FlatCompat } = require("@eslint/eslintrc");
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname, // optional; default: process.cwd()
-  resolvePluginsRelativeTo: __dirname, // optional
-  recommendedConfig: solid.configs.recommended
-});
+const jsdoc = require("eslint-plugin-jsdoc");
 
 module.exports = [
-  { ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"] },
+  {
+    ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"],
+    files: ["**/*.jsx", "**/*.tsx", "**/*.json", "**/*.ts", "**/*.js"]
+  },
+  js.configs.recommended,
+  jsdoc.configs["flat/recommended"],
   {
     name: "ESLint for SolidJS",
-    files: ["**/*.jsx", "**/*.tsx", "**/*.json", "**/*.ts", "**/*.yaml"],
-    ...js.configs.recommended,
+    files: ["**/*.jsx", "**/*.tsx"],
+    plugins: {
+      solid
+    },
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
@@ -37,23 +38,60 @@ module.exports = [
       noInlineConfig: false,
       reportUnusedDisableDirectives: "error"
     },
-    plugins: {
-      solid,
-      json,
-      jsonFiles,
-      typescript
-    },
     settings: {
       solid: {
         version: "detect"
+      }
+    }
+  },
+  {
+    name: "ESLint for TypeScript",
+    files: ["**/*.ts"],
+    plugins: {
+      typescript
+    },
+    languageOptions: {
+      ecmaVersion: "latest",
+      globals: {
+        ...globals.browser
       },
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module"
+      },
+      parser: tsParser
+    },
+    linterOptions: {
+      noInlineConfig: false,
+      reportUnusedDisableDirectives: "error"
+    },
+    settings: {
+      typescript: {
+        version: "detect"
+      }
+    }
+  },
+  {
+    name: "ESLint for JSON",
+    files: ["**/*.json"],
+    plugins: {
+      json,
+      jsonFiles
+    },
+    languageOptions: {
+      ecmaVersion: "latest",
+      globals: {},
+      parser: tsParser
+    },
+    linterOptions: {
+      noInlineConfig: false,
+      reportUnusedDisableDirectives: "error"
+    },
+    settings: {
       json: {
         version: "detect"
       },
       jsonFiles: {
-        version: "detect"
-      },
-      typescript: {
         version: "detect"
       }
     }

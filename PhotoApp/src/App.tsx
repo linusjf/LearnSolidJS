@@ -6,6 +6,9 @@ interface Photo {
   title: string;
 }
 
+/**
+ *
+ */
 function App() {
   const [photos, setPhotos] = createSignal<Photo[]>([]);
 

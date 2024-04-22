@@ -1,5 +1,10 @@
 import { onCleanup } from "solid-js";
 
+/**
+ *
+ * @param el
+ * @param accessor
+ */
 export default function ClickOutside(
   el: HTMLDivElement,
   accessor: () => () => boolean

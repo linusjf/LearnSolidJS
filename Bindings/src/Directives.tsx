@@ -11,6 +11,9 @@ declare module "solid-js/jsx-runtime" {
   }
 }
 
+/**
+ *
+ */
 function Directives() {
   const [show, setShow] = createSignal(false);
   return (

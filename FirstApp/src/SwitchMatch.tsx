@@ -2,6 +2,9 @@ import { createSignal } from "solid-js";
 import { Switch } from "solid-js";
 import { Match } from "solid-js";
 
+/**
+ *
+ */
 function SwitchMatch() {
   const [x] = createSignal(7);
 

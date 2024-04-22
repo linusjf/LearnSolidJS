@@ -2,11 +2,18 @@ import { onMount, onCleanup } from "solid-js";
 import "./styles.css";
 import Canvas from "./Canvas";
 /* eslint no-undef: 0 */ // -->
+/**
+ *
+ */
 function Refs() {
   let canvas: HTMLCanvasElement | undefined = undefined;
   onMount(() => {
     const ctx = canvas!.getContext("2d");
     let frame = requestAnimationFrame(loop);
+    /**
+     *
+     * @param t
+     */
     function loop(t: DOMHighResTimeStamp) {
       frame = requestAnimationFrame(loop);
       const imageData = ctx!.getImageData(0, 0, canvas!.width, canvas!.height);

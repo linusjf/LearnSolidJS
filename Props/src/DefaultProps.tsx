@@ -1,6 +1,9 @@
 import { createSignal } from "solid-js";
 import Greeting from "./Greetings";
 
+/**
+ *
+ */
 export default function DefaultProps() {
   const [name, setName] = createSignal();
   return (

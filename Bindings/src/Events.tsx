@@ -1,9 +1,16 @@
 import { createSignal } from "solid-js";
 import "./styles.css";
 
+/**
+ *
+ */
 function Events() {
   const [pos, setPos] = createSignal({ x: 0, y: 0 });
 
+  /**
+   *
+   * @param event
+   */
   function handleMouseMove(event: MouseEvent) {
     setPos({
       x: event.clientX,

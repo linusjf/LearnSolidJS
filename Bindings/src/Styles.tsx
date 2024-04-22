@@ -1,5 +1,8 @@
 import { createSignal, onCleanup } from "solid-js";
 
+/**
+ *
+ */
 function Styles() {
   const [num, setNum] = createSignal<number>(0);
 

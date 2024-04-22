@@ -1,6 +1,9 @@
 import { createSignal } from "solid-js";
 import { createEffect } from "solid-js";
 
+/**
+ *
+ */
 function ButtonCounter() {
   const [count, setCount] = createSignal<number>(0);
 

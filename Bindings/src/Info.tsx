@@ -1,3 +1,7 @@
+/**
+ *
+ * @param props
+ */
 export default function Info(props: Record<string, any>) {
   return (
     <p>

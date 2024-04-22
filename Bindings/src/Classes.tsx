@@ -1,6 +1,9 @@
 import { createSignal } from "solid-js";
 import "./styles.css";
 
+/**
+ *
+ */
 function Classes() {
   const [current, setCurrent] = createSignal("foo");
 

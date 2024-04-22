@@ -6,6 +6,9 @@ const Broken = (props: Record<string, any>) => {
   return <>Never getting here</>;
 };
 
+/**
+ *
+ */
 function ErrorMessage() {
   return (
     <>
