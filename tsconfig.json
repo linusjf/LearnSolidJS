@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": true,
     "outDir": "build",
-    "rootDir": "."
-  },
-  "extends": "./node_modules/gts/tsconfig-google.json",
-  "include": [
-    "**/src/**/*.ts",
-    "**/test/**/*.ts"
-  ]
+    "rootDir": ".",
+    "strict": true,
+    "target": "ESNext",
+    "types": [
+      "vite/client"
+    ]
+  }
 }

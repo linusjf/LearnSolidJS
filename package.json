@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "globals": "^15.0.0"
+    "globals": "^15.0.0",
+    "solid-js": "^1.8.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
@@ -23,20 +24,11 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-solid": "^0.13.2",
     "eslint-plugin-yml": "^1.14.0",
-    "gts": "^5.3.0",
     "jsonc-eslint-parser": "^2.4.0",
+    "solid-devtools": "^0.29.2",
     "typescript": "~5.4.3",
     "typescript-eslint": "^7.7.0",
     "yaml-eslint-parser": "^1.2.2"
-  },
-  "scripts": {
-    "clean": "gts clean",
-    "compile": "tsc",
-    "fix": "gts fix",
-    "lint": "gts lint",
-    "posttest": "npm run lint",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile"
   },
   "type": "module"
 }
