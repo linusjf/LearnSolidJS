@@ -10,11 +10,11 @@ const { FlatCompat } = require("@eslint/eslintrc");
 const compat = new FlatCompat({
   baseDirectory: __dirname, // optional; default: process.cwd()
   resolvePluginsRelativeTo: __dirname, // optional
-  recommendedConfig: solid.configs.recommended,
-  allConfig: solid.configs.typescript
+  recommendedConfig: solid.configs.recommended
 });
 
 module.exports = [
+  { ignores: ["**/dist/**", "**/node_modules/**", "**/build/**"] },
   {
     name: "ESLint for SolidJS",
     files: ["**/*.jsx", "**/*.tsx", "**/*.json", "**/*.ts", "**/*.yaml"],
