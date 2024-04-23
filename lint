@@ -69,7 +69,7 @@ files=$(find . \( -path "**/.git/**" -o -path "**/dist/**" -o -path "**/node_mod
   -o -type f -name "*.html" -print)
 if test -n "$files"; then
   echo -e "${GREEN}Executing tidy...${ENDCOLOR}"
-  echo "Warnings and errors written to tidy.out."
+  echo -e "${GREEN}Warnings and errors written to tidy.out.${ENDCOLOR}"
   ./wraptidy -config "$configFileName" -quiet -modify -- **/*.html
   SUCCESS=$((SUCCESS + $?))
   sed -i "/^Tidy.*$/d" tidy.out
