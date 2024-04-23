@@ -151,6 +151,45 @@ process_svg() {
   return 0
 }
 
+process_jsx() {
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.jsx" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for jsx...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser babel --write %
+    return $?
+  fi
+  return 0
+}
+
+process_tsx() {
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.tsx" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for tsx files...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser babel-ts --write %
+    return $?
+  fi
+  return 0
+}
+
+process_typescript() {
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.ts" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for ts files...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser typescript --write %
+    return $?
+  fi
+  return 0
+}
+
 process_yaml
 SUCCESS=$((SUCCESS + $?))
 
@@ -169,35 +208,14 @@ SUCCESS=$((SUCCESS + $?))
 process_svg
 SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.jsx" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for jsx...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser babel --write %
-  SUCCESS=$((SUCCESS + $?))
-fi
+process_jsx
+SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.tsx" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for tsx files...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser babel-ts --write %
-  SUCCESS=$((SUCCESS + $?))
-fi
+process_tsx
+SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.ts" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for ts files...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser typescript --write %
-  SUCCESS=$((SUCCESS + $?))
-fi
+process_typescript
+SUCCESS=$((SUCCESS + $?))
 
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
   -o -type f -name "*.md" -print)
