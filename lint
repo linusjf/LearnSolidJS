@@ -96,6 +96,35 @@ process_stylesheets() {
   return "$retcode"
 }
 
+process_html() {
+  declare -i retcode=0
+  files=$(find . \( -path "**/.git/**" -o -path "**/dist/**" -o -path "**/node_modules/**" -o -path "**/build/**" \) -prune \
+    -o -type f -name "*.html" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing tidy...${ENDCOLOR}"
+    echo -e "${GREEN}Warnings and errors written to tidy.out.${ENDCOLOR}"
+    ./wraptidy -config "$configFileName" -quiet -modify -- **/*.html
+    retcode=$((retcode + $?))
+    sed -i "/^Tidy.*$/d" tidy.out
+    echo -e "${GREEN}Executing prettier for html...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser html --write %
+    retcode=$((retcode + $?))
+    echo -e "${GREEN}Executing htmlhint...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        htmlhint --config .htmlhintrc -f compact % 2>/dev/null
+    retcode=$((retcode + $?))
+    echo -e "${GREEN}Executing html-validate...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        html-validate --formatter stylish %
+    retcode=$((retcode + $?))
+  fi
+  return "$retcode"
+}
+
 process_yaml
 SUCCESS=$((SUCCESS + $?))
 
@@ -105,30 +134,8 @@ SUCCESS=$((SUCCESS + $?))
 process_stylesheets
 SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/dist/**" -o -path "**/node_modules/**" -o -path "**/build/**" \) -prune \
-  -o -type f -name "*.html" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing tidy...${ENDCOLOR}"
-  echo -e "${GREEN}Warnings and errors written to tidy.out.${ENDCOLOR}"
-  ./wraptidy -config "$configFileName" -quiet -modify -- **/*.html
-  SUCCESS=$((SUCCESS + $?))
-  sed -i "/^Tidy.*$/d" tidy.out
-  echo -e "${GREEN}Executing prettier for html...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser html --write %
-  SUCCESS=$((SUCCESS + $?))
-  echo -e "${GREEN}Executing htmlhint...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      htmlhint --config .htmlhintrc -f compact % 2>/dev/null
-  SUCCESS=$?
-  echo -e "${GREEN}Executing html-validate...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      html-validate --formatter stylish %
-  SUCCESS=$((SUCCESS + $?))
-fi
+process_html
+SUCCESS=$((SUCCESS + $?))
 
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -print)
@@ -139,6 +146,7 @@ if test -n "$files"; then
       js-beautify --type js --quiet -r %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f -name "*.svg" -print)
 if test -n "$files"; then
@@ -148,6 +156,7 @@ if test -n "$files"; then
       prettier --log-level silent --cache --parser html --write %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f -name "*.jsx" -print)
 if test -n "$files"; then
@@ -157,6 +166,7 @@ if test -n "$files"; then
       prettier --log-level silent --cache --parser babel --write %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f -name "*.tsx" -print)
 if test -n "$files"; then
@@ -166,6 +176,7 @@ if test -n "$files"; then
       prettier --log-level silent --cache --parser babel-ts --write %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f -name "*.ts" -print)
 if test -n "$files"; then
@@ -175,6 +186,7 @@ if test -n "$files"; then
       prettier --log-level silent --cache --parser typescript --write %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
   -o -type f -name "*.md" -print)
 if test -n "$files"; then
@@ -189,14 +201,18 @@ if test -n "$files"; then
       mdl -- %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 echo -e "${GREEN}Executing shfmt for shell scripts...${ENDCOLOR}"
 shfmt -f . | grep -v 'node_modules' |
   parallel -X --bar -j "$PROCS" -I% \
     shfmt -i 2 -bn -ci -sr -kp -w -- %
 SUCCESS=$((SUCCESS + $?))
+
 echo -e "${GREEN}Executing eslint...${ENDCOLOR}"
 eslint --fix --color -- .
 SUCCESS=$((SUCCESS + $?))
+
 end=$(date +%s)
 echo -e "${GREEN}Execution time: $((end - start)) seconds.${ENDCOLOR}"
+
 exit "$SUCCESS"
