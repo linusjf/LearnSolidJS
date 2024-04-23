@@ -10,15 +10,23 @@ declare -i SUCCESS=0
 declare -i STYLE_SUCCESS=0
 declare -r configFileName="tidy.config"
 declare -i PROCS=$(($(nproc) - 1))
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.yaml" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for yaml...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser yaml --write %
-  SUCCESS=$((SUCCESS + $?))
-fi
+
+process_yaml() {
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.yaml" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for yaml...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser yaml --write %
+    return $?
+  fi
+  return 0
+}
+
+process_yaml
+SUCCESS=$((SUCCESS + $?))
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f -name "*.json" -print)
 if test -n "$files"; then
