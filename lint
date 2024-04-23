@@ -7,7 +7,6 @@ require date htmlhint sed stylelint prettier tidy find parallel colorguard html-
 start=$(date +%s)
 echo -e "${GREEN}Starting...${ENDCOLOR}"
 declare -i SUCCESS=0
-declare -i STYLE_SUCCESS=0
 declare -r configFileName="tidy.config"
 declare -i PROCS=$(($(nproc) - 1))
 
@@ -37,49 +36,75 @@ process_json() {
   return 0
 }
 
+process_stylesheets() {
+  declare -i retcode=0
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f \( -name "*.css" -a ! -name "*.scss.css" -a ! -name "*.sass.css" \) -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing colorguard...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        colorguard --file % --allow-equivalent-notation
+    retcode=$((retcode + $?))
+    echo -e "${GREEN}Executing prettier for css...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser css --write %
+    retcode=$((retcode + $?))
+  fi
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f \( -name "*.css" -a ! -name "*.scss.css" -a ! -name "*.sass.css" -a ! -name "tw-*.css" \) -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing stylelint for css...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        stylelint % --color --fix --quiet-deprecation-warnings
+    retcode=$((retcode + $?))
+  fi
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
+    -o -type f -name "*.scss" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for scss...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser scss --write %
+    retcode=$((retcode + $?))
+    echo -e "${GREEN}Executing stylelint for scss...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        stylelint % --color --fix --quiet-deprecation-warnings
+    retcode=$((retcode + $?))
+  fi
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f \( -name "*.scss" -a ! -name "_*.scss" \) -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing sass for scss...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I@ \
+        ./runsass @
+    retcode=$((retcode + $?))
+  fi
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.sass" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing sass for sass...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        ./runsass %
+    retcode=$((retcode + $?))
+  fi
+  return "$retcode"
+}
+
 process_yaml
 SUCCESS=$((SUCCESS + $?))
 
 process_json
 SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f \( -name "*.css" -a ! -name "*.scss.css" -a ! -name "*.sass.css" \) -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing colorguard...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      colorguard --file % --allow-equivalent-notation
-  STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
-  echo -e "${GREEN}Executing prettier for css...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser css --write %
-  STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
-fi
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f \( -name "*.css" -a ! -name "*.scss.css" -a ! -name "*.sass.css" -a ! -name "tw-*.css" \) -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing stylelint for css...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      stylelint % --color --fix --quiet-deprecation-warnings
-  STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
-fi
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/dist/**" -o -path "**/build/**" \) -prune \
-  -o -type f -name "*.scss" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for scss...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser scss --write %
-  STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
-  echo -e "${GREEN}Executing stylelint for scss...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      stylelint % --color --fix --quiet-deprecation-warnings
-  STYLE_SUCCESS=$((STYLE_SUCCESS + $?))
-fi
+process_stylesheets
+SUCCESS=$((SUCCESS + $?))
+
 files=$(find . \( -path "**/.git/**" -o -path "**/dist/**" -o -path "**/node_modules/**" -o -path "**/build/**" \) -prune \
   -o -type f -name "*.html" -print)
 if test -n "$files"; then
@@ -104,6 +129,7 @@ if test -n "$files"; then
       html-validate --formatter stylish %
   SUCCESS=$((SUCCESS + $?))
 fi
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -print)
 if test -n "$files"; then
@@ -111,24 +137,6 @@ if test -n "$files"; then
   echo "$files" |
     parallel -X --bar -j "$PROCS" -I% \
       js-beautify --type js --quiet -r %
-  SUCCESS=$((SUCCESS + $?))
-fi
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f \( -name "*.scss" -a ! -name "_*.scss" \) -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing sass for scss...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I@ \
-      ./runsass @
-  SUCCESS=$((SUCCESS + $?))
-fi
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.sass" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing sass for sass...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      ./runsass %
   SUCCESS=$((SUCCESS + $?))
 fi
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
@@ -191,4 +199,4 @@ eslint --fix --color -- .
 SUCCESS=$((SUCCESS + $?))
 end=$(date +%s)
 echo -e "${GREEN}Execution time: $((end - start)) seconds.${ENDCOLOR}"
-exit $((SUCCESS + STYLE_SUCCESS))
+exit "$SUCCESS"
