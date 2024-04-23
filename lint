@@ -1,9 +1,9 @@
-#!/usr/bin/env -S bash
+#!/usr/bin/env bash
 #shellcheck disable=SC1091
 source ./require.sh
 source ./errorhandlers.sh
 source ./colors.sh
-require date htmlhint sed stylelint prettier tidy find parallel colorguard html-validate js-beautify nproc mdl mdformat eslint
+require date htmlhint sed stylelint prettier tidy find parallel colorguard html-validate js-beautify nproc mdl mdformat eslint shfmt grep
 start=$(date +%s)
 echo -e "${GREEN}Starting...${ENDCOLOR}"
 declare -i SUCCESS=0
@@ -201,6 +201,11 @@ if test -n "$files"; then
       mdl -- %
   SUCCESS=$((SUCCESS + $?))
 fi
+echo -e "${GREEN}Executing shfmt for shell scripts...${ENDCOLOR}"
+shfmt -f . | grep -v 'node_modules' |
+  parallel -X --bar -j "$PROCS" -I% \
+    shfmt -i 2 -bn -ci -sr -kp -w -- %
+SUCCESS=$((SUCCESS + $?))
 end=$(date +%s)
 echo -e "${GREEN}Execution time: $((end - start)) seconds.${ENDCOLOR}"
 exit $((SUCCESS + STYLE_SUCCESS))
