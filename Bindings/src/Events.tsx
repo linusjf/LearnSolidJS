@@ -1,15 +1,15 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 import "./styles.css";
 
 /**
- *
+ * @returns {JSXElement} mouse position
  */
 function Events() {
   const [pos, setPos] = createSignal({ x: 0, y: 0 });
 
   /**
    *
-   * @param event
+   * @param {MouseEvent} event mouse click event
    */
   function handleMouseMove(event: MouseEvent) {
     setPos({

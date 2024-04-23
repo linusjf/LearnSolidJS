@@ -1,18 +1,18 @@
-import { onMount, onCleanup } from "solid-js";
+import { onMount, onCleanup, JSXElement } from "solid-js";
 import "./styles.css";
 import Canvas from "./Canvas";
 /* eslint no-undef: 0 */ // -->
 /**
- *
+ * @returns {JSXElement} returns canvas
  */
-function Refs() {
+function Refs(): JSXElement {
   let canvas: HTMLCanvasElement | undefined = undefined;
   onMount(() => {
     const ctx = canvas!.getContext("2d");
     let frame = requestAnimationFrame(loop);
     /**
      *
-     * @param t
+     * @param {DOMHighResTimeStamp} t timestamp
      */
     function loop(t: DOMHighResTimeStamp) {
       frame = requestAnimationFrame(loop);

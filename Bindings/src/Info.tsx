@@ -1,6 +1,8 @@
+import { JSXElement } from "solid-js";
+
 /**
- *
- * @param props
+ * @returns {JSXElement} returns para containing package info
+ * @param {Record<string,any>} props object
  */
 export default function Info(props: Record<string, any>) {
   return (
