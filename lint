@@ -24,18 +24,25 @@ process_yaml() {
   return 0
 }
 
+process_json() {
+  files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
+    -o -type f -name "*.json" -print)
+  if test -n "$files"; then
+    echo -e "${GREEN}Executing prettier for json...${ENDCOLOR}"
+    echo "$files" |
+      parallel -X --bar -j "$PROCS" -I% \
+        prettier --log-level silent --cache --parser json --write %
+    return $?
+  fi
+  return 0
+}
+
 process_yaml
 SUCCESS=$((SUCCESS + $?))
 
-files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
-  -o -type f -name "*.json" -print)
-if test -n "$files"; then
-  echo -e "${GREEN}Executing prettier for json...${ENDCOLOR}"
-  echo "$files" |
-    parallel -X --bar -j "$PROCS" -I% \
-      prettier --log-level silent --cache --parser json --write %
-  SUCCESS=$((SUCCESS + $?))
-fi
+process_json
+SUCCESS=$((SUCCESS + $?))
+
 files=$(find . \( -path "**/.git/**" -o -path "**/node_modules/**" -o -path "**/build/**" -o -path "**/dist/**" \) -prune \
   -o -type f \( -name "*.css" -a ! -name "*.scss.css" -a ! -name "*.sass.css" \) -print)
 if test -n "$files"; then
