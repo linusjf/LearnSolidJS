@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@typescript-eslint/typescript-estree": "^7.7.1",
     "globals": "^15.0.0",
     "solid-js": "^1.8.11"
   },
@@ -26,7 +27,7 @@
     "eslint-plugin-yml": "^1.14.0",
     "jsonc-eslint-parser": "^2.4.0",
     "solid-devtools": "^0.29.2",
-    "typescript": "~5.4.3",
+    "typescript": "^5.3.3",
     "typescript-eslint": "^7.7.0",
     "yaml-eslint-parser": "^1.2.2"
   },
