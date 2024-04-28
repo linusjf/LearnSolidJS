@@ -23,7 +23,7 @@
     "eslint-plugin-jsonc": "^2.15.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-solid": "^0.13.2",
+    "eslint-plugin-solid": "^0.14.0",
     "eslint-plugin-yml": "^1.14.0",
     "jsonc-eslint-parser": "^2.4.0",
     "solid-devtools": "^0.29.2",
