@@ -5,19 +5,18 @@ import {
   PropsWithChildren
 } from "solid-js";
 
-type ColorProps = {
-  name: "color";
-};
 /**
  * @returns {JSXElement} ColoredList
- * @param {PropsWithChildren<ColorProps>} props Props data
+ * @param {PropsWithChildren<any>} props Props data
  */
-export default function ColoredList(
-  props: PropsWithChildren<ColorProps>
-): JSXElement {
-  const c = children(() => props.children);
-  createEffect(() =>
-    c()!.forEach((item: JSXElement) => (item.style.color = props.color))
-  );
+export default function ColoredList(props: PropsWithChildren<any>): JSXElement {
+  const c: any = children(() => props.children);
+  createEffect(() => {
+    const val = c();
+    if (Array.isArray(val))
+      val!.forEach((item: JSXElement) => {
+        item.style.color = props.color;
+      });
+  });
   return <>{c()}</>;
 }
